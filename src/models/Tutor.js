@@ -20,6 +20,7 @@ class Tutor extends Model {
         sequelize,
         tableName: "tutor",
         timestamps: true,
+        underscored: false,
       },
     );
   }
