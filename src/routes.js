@@ -1,15 +1,15 @@
 import express from "express";
 import {
   createTutor,
-  getAllUsers,
+  getAllTutor,
   deleteUser,
-} from "./controllers/userController.js";
+} from "./controllers/tutorController.js";
 
 const router = express.Router();
 
 router.post("/cadastro", createTutor);
 
-router.get("/todos", getAllUsers);
+router.get("/todos", getAllTutor);
 
 router.delete("/deletar", deleteUser);
 

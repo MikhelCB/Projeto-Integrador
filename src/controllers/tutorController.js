@@ -1,5 +1,6 @@
 import Tutor from "../models/Tutor.js";
 
+//Criando um tutor
 export const createTutor = async (req, res) => {
   try {
     const createTutor = {
@@ -16,8 +17,10 @@ export const createTutor = async (req, res) => {
   }
 };
 
-export const getAllUsers = (req, res) => {
-  res.status(200).json({ message: "Deu bom" });
+export const getAllTutor = async (req, res) => {
+  const getTutor = await Tutor.findAll();
+
+  res.status(200).json({ getTutor });
 };
 
 export const deleteUser = (req, res) => {
