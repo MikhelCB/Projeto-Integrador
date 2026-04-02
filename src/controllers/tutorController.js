@@ -9,7 +9,7 @@ export const createTutor = async (req, res) => {
       telefone: req.body.telefone,
       endereco: req.body.endereco,
     };
-    const tutor = await Tutor.create(createTutor);
+    const tutor = await Tutor.create(req.body);
 
     res.status(201).json(tutor);
   } catch (err) {
@@ -20,7 +20,7 @@ export const createTutor = async (req, res) => {
 export const getAllTutor = async (req, res) => {
   try {
     const getTutor = await Tutor.findAll();
-    res.status(200).json({ getTutor });
+    res.status(200).json(getTutor);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -31,9 +31,12 @@ export const deleteTutor = async (req, res) => {
     const deltutor = await Tutor.destroy({
       where: { id: req.params.id },
     });
+    if (!deltutor) {
+      return res.status(404).json({ message: "Tutor não encontrado" });
+    }
 
-    res.status(200).json({ deltutor });
+    res.status(200).json({ message: "Tutor deletado com sucesso" });
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ message: "Erro ao deletar tutor" });
   }
 };
