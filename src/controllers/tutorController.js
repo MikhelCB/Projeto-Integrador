@@ -18,11 +18,22 @@ export const createTutor = async (req, res) => {
 };
 
 export const getAllTutor = async (req, res) => {
-  const getTutor = await Tutor.findAll();
-
-  res.status(200).json({ getTutor });
+  try {
+    const getTutor = await Tutor.findAll();
+    res.status(200).json({ getTutor });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
-export const deleteUser = (req, res) => {
-  res.status(200).json({ message: "Deu bom" });
+export const deleteTutor = async (req, res) => {
+  try {
+    const deltutor = await Tutor.destroy({
+      where: { id: req.params.id },
+    });
+
+    res.status(200).json({ deltutor });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
