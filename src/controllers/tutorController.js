@@ -3,17 +3,38 @@ import Tutor from "../models/Tutor.js";
 //Criando um tutor
 export const createTutor = async (req, res) => {
   try {
-    const createTutor = {
-      nome: req.body.nome,
-      cpf: req.body.cpf,
-      telefone: req.body.telefone,
-      endereco: req.body.endereco,
+    const { nome, cpf, telefone, endereco } = req.body;
+
+    if (!nome || !cpf) {
+      return res.status(400).json({ message: "Nome e CPF obrigatórios" });
+    }
+
+    const tutor = {
+      nome,
+      cpf,
+      telefone,
+      endereco,
     };
-    const tutor = await Tutor.create(req.body);
 
     res.status(201).json(tutor);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ message: "Erro ao criar tutor" });
+  }
+};
+
+export const updateTutor = async (req, res) => {
+  try {
+    const updated = await Tutor.update(req.body, {
+      where: { id: req.params.id },
+    });
+
+    if (!updated[0]) {
+      return res.status(404).json({ message: "Tutor Não encontrado" });
+    }
+
+    res.status(200).json({ message: "Tutor atualizado" });
+  } catch (err) {
+    res.status(500).json({ message: "Erro ao atualizar tutor" });
   }
 };
 
@@ -22,7 +43,7 @@ export const getAllTutor = async (req, res) => {
     const getTutor = await Tutor.findAll();
     res.status(200).json(getTutor);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ message: "Nenhum tutor encontrado" });
   }
 };
 
