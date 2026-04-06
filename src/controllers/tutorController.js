@@ -9,12 +9,12 @@ export const createTutor = async (req, res) => {
       return res.status(400).json({ message: "Nome e CPF obrigatórios" });
     }
 
-    const tutor = {
+    const tutor = await Tutor.create({
       nome,
       cpf,
       telefone,
       endereco,
-    };
+    });
 
     res.status(201).json(tutor);
   } catch (err) {

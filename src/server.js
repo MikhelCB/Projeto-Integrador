@@ -6,7 +6,8 @@ import Agendamento from "./models/Agendamento.js";
 
 import { Sequelize } from "sequelize";
 import config from "./config/database.js";
-import userRoutes from "./routes.js";
+import tutorRoutes from "./routes/tutorRoutes.js";
+import animalRoutes from "./routes/animalRoutes.js";
 
 const app = express();
 app.use(express.json());
@@ -24,7 +25,8 @@ Animal.associate({ Tutor, Agendamento });
 Servico.associate({ Agendamento });
 Agendamento.associate({ Tutor, Animal, Servico });
 
-app.use("/usuarios", userRoutes);
+app.use("/tutores", tutorRoutes);
+app.use("/animais", animalRoutes);
 
 sequelize
   .authenticate()
