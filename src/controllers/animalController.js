@@ -5,12 +5,13 @@ export const createAnimal = async (req, res) => {
   try {
     const { nome, especie, raca, tutor_id } = req.body;
 
-    if ((!nome || !especie, raca, tutor_id)) {
-      return res
-        .status(400)
-        .json({ message: "Nome, especie, raça e tutor são obrigatórios" });
+    if (!nome || !especie || !raca || !tutor_id) {
+      return res.status(400).json({
+        message: "Nome, espécie, raça e tutor são obrigatórios",
+      });
     }
 
+    // valida se o tutor existe
     const tutor = await Tutor.findByPk(tutor_id);
 
     if (!tutor) {
@@ -26,6 +27,10 @@ export const createAnimal = async (req, res) => {
 
     res.status(201).json(animal);
   } catch (err) {
-    res.status(500).json({ message: "Erro ao criar animal" });
+    console.error("ERRO REAL:", err);
+    res.status(500).json({
+      message: err.message,
+      detail: err.parent?.detail,
+    });
   }
 };

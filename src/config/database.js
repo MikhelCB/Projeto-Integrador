@@ -8,7 +8,7 @@ export default {
   database: process.env.DB_DATABASE,
   define: {
     timestamp: true,
-    underscored: true,
+    underscored: false,
     underscoredAll: true,
   },
 };
