@@ -34,3 +34,12 @@ export const createAnimal = async (req, res) => {
     });
   }
 };
+
+export const getAllAnimal = async (req, res) => {
+  try {
+    const getAnimal = await Animal.findAll();
+    res.status(200).json(getAnimal);
+  } catch (err) {
+    res.status(500).json({ message: "Nenhum animal encontrado" });
+  }
+};

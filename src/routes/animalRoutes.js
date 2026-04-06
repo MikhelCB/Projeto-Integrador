@@ -1,8 +1,16 @@
 import express from "express";
-import { createAnimal } from "../controllers/animalController.js";
+import {
+  createAnimal,
+  getAllAnimal,
+  //   updateAnimal,
+  //   deleteAnimal,
+} from "../controllers/animalController.js";
 
 const router = express.Router();
 
 router.post("/", createAnimal);
+router.get("/", getAllAnimal);
+// router.get("/:id", updateAnimal);
+// router.get("/:id", deleteAnimal);
 
 export default router;
