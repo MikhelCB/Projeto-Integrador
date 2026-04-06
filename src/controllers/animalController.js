@@ -43,3 +43,19 @@ export const getAllAnimal = async (req, res) => {
     res.status(500).json({ message: "Nenhum animal encontrado" });
   }
 };
+
+export const updateAnimal = async (req, res) => {
+  try {
+    const update = await Animal.update(req.body, {
+      where: { id: req.params.id },
+    });
+
+    res.status(200).json({ message: "Animal atualizado" });
+
+    if (!update[0]) {
+      return res.status(404).json({ message: "Animal não encontrado" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Erro ao atualizar animal" });
+  }
+};
