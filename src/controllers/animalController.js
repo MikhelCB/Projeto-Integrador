@@ -59,3 +59,21 @@ export const updateAnimal = async (req, res) => {
     res.status(500).json({ message: "Erro ao atualizar animal" });
   }
 };
+
+export const deleteAnimal = async (req, res) => {
+  try {
+    const delanimal = await Animal.destroy({
+      where: { id: req.params.id },
+    });
+    if (!delanimal) {
+      res.status(404).json({ message: "Animal não encontrado" });
+    }
+    res.status(200).json({ message: "Animal deletado" });
+  } catch (err) {
+    console.error("ERRO REAL:", err);
+    res.status(500).json({
+      message: err.message,
+      detail: err.parent?.detail,
+    });
+  }
+};

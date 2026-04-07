@@ -3,7 +3,7 @@ import {
   createAnimal,
   getAllAnimal,
   updateAnimal,
-  //   deleteAnimal,
+  deleteAnimal,
 } from "../controllers/animalController.js";
 
 const router = express.Router();
@@ -11,6 +11,6 @@ const router = express.Router();
 router.post("/", createAnimal);
 router.get("/", getAllAnimal);
 router.put("/:id", updateAnimal);
-// router.get("/:id", deleteAnimal);
+router.delete("/:id", deleteAnimal);
 
 export default router;
