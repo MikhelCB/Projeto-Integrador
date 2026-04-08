@@ -3,6 +3,7 @@ import {
   createServico,
   getAllServicos,
   updateServico,
+  deleteServico,
 } from "../controllers/servicoController.js";
 
 const router = express.Router();
@@ -10,6 +11,6 @@ const router = express.Router();
 router.post("/", createServico);
 router.get("/", getAllServicos);
 router.put("/:id", updateServico);
-// router.delete("/:id", deleteServico);
+router.delete("/:id", deleteServico);
 
 export default router;

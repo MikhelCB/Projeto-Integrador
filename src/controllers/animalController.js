@@ -70,10 +70,6 @@ export const deleteAnimal = async (req, res) => {
     }
     res.status(200).json({ message: "Animal deletado" });
   } catch (err) {
-    console.error("ERRO REAL:", err);
-    res.status(500).json({
-      message: err.message,
-      detail: err.parent?.detail,
-    });
+    res.status(500).json({ message: "Erro ao deletar tutor" });
   }
 };

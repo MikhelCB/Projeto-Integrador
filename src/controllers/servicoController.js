@@ -43,3 +43,17 @@ export const updateServico = async (req, res) => {
     res.status(500).json({ message: "Erro ao atualizar serviço" });
   }
 };
+
+export const deleteServico = async (req, res) => {
+  try {
+    const deleteservico = await Servico.destroy({
+      where: { id: req.params.id },
+    });
+    if (!deleteServico) {
+      res.status(404).json({ message: "Serviço não encontrado" });
+    }
+    res.status(200).json({ message: "Serviço deletado" });
+  } catch (err) {
+    res.status(500).json({ message: "Erro ao deletar Serviço" });
+  }
+};
