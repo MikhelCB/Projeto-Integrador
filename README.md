@@ -1,122 +1,118 @@
-# 📌 Backend - Projeto Integrador (Clínica Veterinária)
+# 📌 Backend — Projeto Integrador (Clínica Veterinária)
 
-Este é o backend de uma aplicação para gerenciamento de uma clínica
-veterinária. A API permite o controle de tutores, animais, serviços e
-agendamentos.
+API em Node.js para gerenciamento de uma clínica veterinária. A API permite o controle de **tutores**, **animais**, **serviços** e **agendamentos**.
 
-------------------------------------------------------------------------
+## 🚀 Tecnologias utilizadas
 
-# 🚀 Tecnologias utilizadas
+- **Node.js**
+- **Express**
+- **Sequelize**
+- **PostgreSQL**
 
--   Node.js
--   Express
--   Sequelize
--   PostgreSQL
--   Docker
+## ✅ Requisitos
 
-------------------------------------------------------------------------
+- **Node.js 18+**
+- **PostgreSQL** (local) *ou* Postgres via Docker
+- **npm**
 
-# ⚙️ Pré-requisitos
+## 📦 Instalação
 
-Antes de rodar o projeto, você precisa ter instalado:
+Na raiz do projeto:
 
--   Node.js (versão 18 ou superior)
--   Docker e Docker Compose
--   npm ou yarn
-
-------------------------------------------------------------------------
-
-# 📦 Instalação
-
-Clone o repositório:
-
-``` bash
-git clone <url-do-repositorio>
-cd Projeto-Integrador
-```
-
-Instale as dependências:
-
-``` bash
+```bash
 npm install
 ```
 
-------------------------------------------------------------------------
+## 🔐 Configuração do ambiente (`.env`)
 
-# 🐳 Banco de Dados (PostgreSQL com Docker)
+1) Crie um arquivo `.env` na raiz do projeto baseado no exemplo:
 
-Suba o container do banco:
-
-``` bash
-docker-compose up -d
+```bash
+# Windows (PowerShell)
+Copy-Item .env.example .env
 ```
 
-------------------------------------------------------------------------
+2) Ajuste as variáveis conforme seu banco:
 
-# 🔐 Configuração do Banco
+- `DB_DIALECT` (ex: `postgres`)
+- `DB_HOST`
+- `DB_PORT`
+- `DB_USERNAME`
+- `DB_PASSWORD`
+- `DB_DATABASE`
 
-Configure o arquivo:
+As variáveis são carregadas em `src/config/database.js`.
 
-    src/config/database.js
+## 🐳 Subindo Postgres com Docker (opcional)
 
-------------------------------------------------------------------------
+Se você preferir, pode usar um Postgres via Docker. Exemplo:
 
-# 🗄️ Rodando as migrations
+```bash
+docker run --name projeto-integrador-db ^
+  -e POSTGRES_USER=postgres ^
+  -e POSTGRES_PASSWORD=postgres ^
+  -e POSTGRES_DB=projeto_integrador ^
+  -p 5432:5432 ^
+  -d postgres:16-alpine
+```
 
-``` bash
+> Se você já tem Postgres instalado localmente, pode pular esta etapa.
+
+## 🗄️ Rodando as migrations
+
+```bash
 npx sequelize-cli db:migrate
 ```
 
-------------------------------------------------------------------------
+## ▶️ Rodando o servidor
 
-# ▶️ Rodando o projeto
-
-``` bash
-npm run dev
+```bash
+node src/server.js
 ```
 
-Servidor rodando em:
+Servidor padrão:
 
-http://localhost:3000
+- `http://localhost:3000`
 
-------------------------------------------------------------------------
+## 📌 Rotas principais
 
-# 📌 Rotas principais
+As rotas estão registradas em `src/server.js`.
 
-## 👤 Tutores
+### 👤 Tutores (`/tutores`)
 
--   POST /tutores
--   GET /tutores
--   PUT /tutores/:id
--   DELETE /tutores/:id
+- `POST /tutores`
+- `GET /tutores`
+- `PUT /tutores/:id`
+- `DELETE /tutores/:id`
 
-## 🐶 Animais
+### 🐶 Animais (`/animais`)
 
--   POST /animais
--   GET /animais
--   DELETE /animais/:id
+- `POST /animais`
+- `GET /animais`
+- `PUT /animais/:id`
+- `DELETE /animais/:id`
 
-## 🏥 Serviços
+### 🏥 Serviços (`/servico`)
 
--   POST /servicos
--   GET /servicos
+- `POST /servico`
+- `GET /servico`
+- `PUT /servico/:id`
+- `DELETE /servico/:id`
 
-## 📅 Agendamentos
+### 📅 Agendamentos (`/agendamento`)
 
--   POST /agendamentos
--   GET /agendamentos
+- `POST /agendamento`
+- `GET /agendamento`
+- `PUT /agendamento/:id`
+- `DELETE /agendamento/:id`
 
-------------------------------------------------------------------------
+## 🧠 Regras de Negócio
 
-# 🧠 Regras de Negócio
+- Um animal pertence a um tutor
+- Um agendamento deve conter: animal, tutor, serviço e data
+- Um animal só pode ser agendado pelo seu próprio tutor
+- Não é permitido conflito de horários
 
--   Um animal pertence a um tutor
--   Um agendamento deve conter: animal, tutor, serviço e data
--   Um animal só pode ser agendado pelo seu próprio tutor
--   Não é permitido conflito de horários
-
-------------------------------------------------------------------------
-
-# 👨‍💻 Autor
+## 👨‍💻 Autor
 
 Projeto desenvolvido para fins acadêmicos.
