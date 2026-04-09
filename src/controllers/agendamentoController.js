@@ -76,3 +76,21 @@ export const getAllAgendamento = async (req, res) => {
     res.status(500).json({ message: "Não foi possível buscar agendamentos" });
   }
 };
+
+export const updateAgendamento = async (req, res) => {
+  try {
+    const update = await Agendamento.update(req.body, {
+      where: { id: req.params.id },
+    });
+
+    res.status(200).json({ message: "Agendamento atualizado" });
+
+    if (!update[0]) {
+      return res.status(404).json({ message: "Agendamento não encontrado" });
+    }
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: "Não foi possível atualizar o agendamento" });
+  }
+};
