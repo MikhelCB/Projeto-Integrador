@@ -1,10 +1,13 @@
 import express from "express";
-import { createAgendamento } from "../controllers/agendamentoController.js";
+import {
+  createAgendamento,
+  getAllAgendamento,
+} from "../controllers/agendamentoController.js";
 
 const router = express.Router();
 
 router.post("/", createAgendamento);
-// router.get("/", getAllAnimal);
+router.get("/", getAllAgendamento);
 // router.put("/:id", updateAnimal);
 // router.delete("/:id", deleteAnimal);
 

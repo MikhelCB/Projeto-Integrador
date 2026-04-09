@@ -67,3 +67,12 @@ export const createAgendamento = async (req, res) => {
       .json({ message: "Não foi possível realizar o agendamento" });
   }
 };
+
+export const getAllAgendamento = async (req, res) => {
+  try {
+    const getagendamento = await Agendamento.findAll();
+    res.status(200).json(getagendamento);
+  } catch (err) {
+    res.status(500).json({ message: "Não foi possível buscar agendamentos" });
+  }
+};
