@@ -74,6 +74,18 @@ Servidor padrão:
 
 - `http://localhost:3000`
 
+## 🖥️ Frontend (React)
+
+Na pasta `frontend` há uma interface em **React + Vite** que consome a API acima.
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+O app abre em `http://localhost:5173`. Em desenvolvimento, o Vite **encaminha** as chamadas para `/tutores`, `/animais`, `/servico` e `/agendamento` para `http://localhost:3000` (veja `frontend/vite.config.js`). Com o **build** de produção, defina `VITE_API_URL` no `.env` apontando para o backend (e habilite CORS no servidor se forem origens diferentes).
+
 ## 📌 Rotas principais
 
 As rotas estão registradas em `src/server.js`.
