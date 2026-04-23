@@ -14,7 +14,16 @@ import agendamentoRoutes from "./routes/agendamentoRoutes.js";
 const app = express();
 app.use(express.json());
 
-const sequelize = new Sequelize(config);
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
+  dialect: "postgres",
+  protocol: "postgres",
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
+});
 //Fazendo o init de todos os models
 Tutor.init(sequelize);
 Animal.init(sequelize);
@@ -36,7 +45,18 @@ sequelize
   .authenticate()
   .then(() => {
     console.log("Banco de dados conectado");
-    app.listen(3000, () => console.log("Servidor ON"));
+    sequelize
+      .authenticate()
+      .then(() => {
+        console.log("Banco de dados conectado");
+
+        const port = process.env.PORT || 3000;
+
+        app.listen(port, () => console.log("Servidor ON"));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   })
   .catch((err) => {
     console.error(err);
